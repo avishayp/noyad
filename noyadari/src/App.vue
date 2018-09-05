@@ -1,27 +1,41 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <main id="app" class="section">
+    <div class="container">
+      <Header />
+      <router-view></router-view>
+    </div>
+  </main>
 </template>
 
 <script>
+import Header from './components/Header'
+
 export default {
-  name: "app"
+  components: {
+    Header
+  },
+  methods: {
+  },
+  created() {
+  }
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+body {
+  font-family: "Roboto", sans-serif;
 }
-a {
-  text-decoration: none !important;
-  color: black;
+
+.b-lefty {
+  text-align: left;
+  margin: 10%
 }
-.pointer {
-  cursor: pointer;
+
+.a-centric {
+  width: 40%
+}
+
+.blueish {
+  background: lightblue
 }
 </style>

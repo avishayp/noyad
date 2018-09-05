@@ -1,102 +1,85 @@
 <template>
-  <div>
-    <div style="background-color: grey;"><center>Login</center></div><br>
-    <center>
-            <div style="width :  40%">
-                <b-field label="Email">
-                    <b-input type="email" v-model="email"
-                                    value="john@"
-                                    maxlength="30"
-                                    required>
-                    </b-input>
-                </b-field>
-                <b-field label="Password">
-                    <b-input type="password"
-                        v-model="password"
-                        @keyup.enter.native="login"
-                        password-reveal
-                        required >
-                    </b-input>
-                </b-field>
-                <button class="button is-primary" @click="login">Login</button>
-            </div>
-    </center>
-    
-  </div>
+<div>
+  <center>
+    <div class="a-centric">
+
+    <div v-if="attempts" class="b-lefty">
+      <div v-if="userName" class="alert alert-success">
+        <strong>Welcome {{userName}}</strong>
+      </div>
+      <div v-else class="alert alert-danger">
+        <strong>Wrong email or password</strong>
+      </div>
+    </div>
+    <div v-else class="b-lefty">
+      <div class="alert alert-info">
+        <strong>Login Details</strong>
+      </div>
+    </div>
+
+    <b-form v-on:submit.prevent="login">
+      <b-form-group label="Email:"
+                    label-for="emailInput"
+                    class="b-lefty">
+        <b-form-input id="emailInput"
+                      type="email"
+                      v-model="user.email"
+                      required
+                      autocomplete="email"
+                      placeholder="Your email...">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group label="Password:"
+                    label-for="passwordInput"
+                    class="b-lefty">
+        <b-form-input id="passwordInput"
+                      type="password"
+                      autocomplete="current-password"
+                      v-model="user.password"
+                      required
+                      placeholder="Your password...">
+        </b-form-input>
+      </b-form-group>
+      <b-button type="submit" variant="primary" class="b-lefty">Submit</b-button>
+    </b-form>
+    </div>
+  </center>
+</div>
 </template>
 
 <script>
+
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  },
   data() {
     return {
-      name: "fast",
-      email: null,
-      password: null,
-      user: {}
-    };
+      attempts: 0,
+      user: {
+        email: null,
+        password: null
+      }
+    }
+  },
+  computed: {
+      userName: function() {
+        return this.$store.getters.userName
+      }
   },
   methods: {
     login: function() {
-      console.log(this.email, this.password);
-      if (this.email && this.password) {
-        this.$http
-          .get("https://vue-project-9e30c.firebaseio.com/user.json")
-          .then(data => {
-            return data.json();
-          })
-          .then(data => {
-            for (let key in data) {
-              console.log(data[key]);
-              this.user = data[key];
-            }
-            if (
-              this.user.email == this.email &&
-              this.user.password == this.password
-            ) {
-              this.$router.push({ name: "home" });
-              localStorage.setItem("username", "test");
-              localStorage.setItem("userLoggedIn", 1);
-              localStorage.setItem("email",this.user.email);
-              this.email = null;
-              this.password = null;
-            } else {
-              this.$toast.open({
-                message: "Invalid Username or password!",
-                type: "is-danger"
-              });
-              this.email = null;
-              this.password = null;
-            }
-          });
-      } else {
-        this.$toast.open({
-          message: "Fill out Username or password!",
-          type: "is-danger"
-        });
-      }
+      this.$store.dispatch('login', this.user)
+        .then( () => {
+          this.$router.go(-1)
+        })
+        .catch( err => {
+          console.log('login failed for', this.user.email, err.message)
+          this.attempts += 1
+        })
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
