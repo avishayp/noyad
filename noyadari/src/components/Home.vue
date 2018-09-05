@@ -27,9 +27,6 @@ export default {
     addItem: function() {
       this.$router.push('/add')
     }
-  },
-  mounted() {
-    this.$store.dispatch('fetchItems')
   }
 };
 </script>

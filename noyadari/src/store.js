@@ -24,7 +24,10 @@ function getFirebaseAuthUser() {
 function updateStateItems(stat) {
   Firebase.database().ref('items')
   .once('value')
-  .then( snap => { stat.items = snap.val() } )
+  .then( snap => {
+    stat.items = snap.val()
+  })
+  .catch( err => { console.error(err)})
 }
 
 const store = new Vuex.Store({
@@ -38,7 +41,10 @@ const store = new Vuex.Store({
     userName: state => {
       return state.user && state.user.split('@')[0]
     },
-    items: state => { return state.items }
+    items: state => {
+      updateStateItems(state)
+      return state.items 
+    }
   },
 
   mutations: {
@@ -55,10 +61,6 @@ const store = new Vuex.Store({
       var itemId = item.sn
       Firebase.database().ref('items/' + itemId)
       .set(item)
-      updateStateItems(state)
-    },
-    fetch: state => {
-      updateStateItems(state)
     }
   },
 
@@ -78,9 +80,6 @@ const store = new Vuex.Store({
         console.log('signed out')
         context.commit('setUser')
       })
-    },
-    fetchItems: context => {
-      context.commit('fetch')
     },
     addItem: (context, item) => {
       context.commit('update', item)
