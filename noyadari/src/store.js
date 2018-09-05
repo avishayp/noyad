@@ -16,35 +16,17 @@ Firebase.initializeApp(config);
 
 Vue.use(Vuex);
 
-function getFirebaseAuthUser() {
-  let user = Firebase.auth().currentUser
-  return user && user.email
-}
-
-function updateStateItems(stat) {
-  Firebase.database().ref('items')
-  .once('value')
-  .then( snap => {
-    stat.items = snap.val()
-  })
-  .catch( err => { console.error(err)})
-}
-
 const store = new Vuex.Store({
 
   state: {
     user: null,
-    items: {}
+    items: Firebase.database().ref('items')
   },
 
   getters: {
-    userName: state => {
-      return state.user && state.user.split('@')[0]
-    },
-    items: state => {
-      updateStateItems(state)
-      return state.items 
-    }
+    userName: state => state.user && state.user.split('@')[0],
+    itemsRef: state => state.items,
+    itemBySn: state => sn => state.items.child(sn)
   },
 
   mutations: {
@@ -55,13 +37,10 @@ const store = new Vuex.Store({
       })
     },
     setUser: state => {
-      state.user = getFirebaseAuthUser()
+      let user = Firebase.auth().currentUser
+      state.user = user && user.email
     },
-    update: (state, item) => {
-      var itemId = item.sn
-      Firebase.database().ref('items/' + itemId)
-      .set(item)
-    }
+    updateItem: (state, item) => state.items.child(item.sn).set(item)
   },
 
   actions: {
@@ -81,12 +60,8 @@ const store = new Vuex.Store({
         context.commit('setUser')
       })
     },
-    addItem: (context, item) => {
-      context.commit('update', item)
-    },
-    editItem: (context, item) => {
-      context.commit('update', item)
-    }
+    addItem: (context, item) => context.commit('updateItem', item),
+    updateItem: (context, item) => context.commit('updateItem', item)
   }
 })
 

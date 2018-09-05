@@ -42,9 +42,10 @@ export default {
       this.item = {}
     }
   },
-  mounted() {
-    let sn = this.$router.currentRoute.query.sn
-    this.item = this.$store.getters.items[sn] || {}
+  firebase() {
+    return {
+      item: this.$store.getters.itemBySn(this.$router.currentRoute.query.sn)
+    }
   }
 };
 </script>

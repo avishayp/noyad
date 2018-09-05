@@ -2,7 +2,7 @@
   <div>
     
     <div>
-      <b-table :items="itemsArr">
+      <b-table :items="items">
       </b-table>
     </div>
 
@@ -14,10 +14,9 @@
 <script>
 
 export default {
-  computed: {
-    itemsArr: function() {
-      return this.$store.getters.items ? 
-        Object.values(this.$store.getters.items) : []
+  data() {
+    return {
+      items: {}
     }
   },
   methods: {
@@ -26,6 +25,11 @@ export default {
     },
     addItem: function() {
       this.$router.push('/add')
+    }
+  },
+  firebase() {
+    return {
+      items: this.$store.getters.itemsRef
     }
   }
 };

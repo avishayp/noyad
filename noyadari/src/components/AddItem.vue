@@ -39,7 +39,7 @@ export default {
     addItem: function() {
       let newItem = {
         sn: this.sn,
-        name: "new sensor #" + Object.keys(this.$store.getters.items).length,
+        name: "new sensor",
         details: '',
         updated: Date.now(),
         createBy: this.$store.getters.userName,
