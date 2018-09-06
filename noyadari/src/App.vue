@@ -32,7 +32,7 @@ body {
 }
 
 .a-centric {
-  width: 40%
+  width: 80%
 }
 
 .blueish {

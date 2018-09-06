@@ -1,6 +1,11 @@
-function parseUrl (queryString) {
-    const res = {}
-    const query = queryString.trim().replace(/^(\?|#|&)/, '')
+function parseUrl (urlString) {
+    const urlParts = urlString.split('?')
+    const res = {
+      url: urlParts[0],
+      query: urlParts[1]
+    }
+    
+    const query = res.query && res.query.trim().replace(/^(\?|#|&)/, '')
 
     if (!query) {
       return res
