@@ -37,26 +37,13 @@ export default {
   },
   methods: {
     addItem: function() {
-      let newItem = {
-        sn: this.sn,
-        name: "new sensor",
-        details: '',
-        updated: Date.now(),
-        createBy: this.$store.getters.userName,
-        count: 0,
-        lat: 0,
-        lng: 0
-      }
-
-      this.$store.dispatch('addItem', newItem)
-      this.$router.push("/edit?sn=" + newItem.sn)
+      this.$router.push("/qradd/?sn=" + this.sn)
       this.sn = null
     },
     onDecode: function(content) {
       if (!content) return
 
       var query = parseUrl(content)
-      console.log(query)
       this.sn = query.sn
       if (this.sn) {
         this.paused = true

@@ -3,6 +3,7 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import AddItem from './components/AddItem.vue'
 import EditItem from './components/EditItem.vue'
+import QRAdd from './components/QRAdd.vue'
 
 // state
 import store from './store'
@@ -28,6 +29,10 @@ const routes = [
     {
         path: '/add',
         component: AddItem
+    },
+    {
+        path: '/qradd',
+        component: QRAdd
     },
     {
         path: '/edit',

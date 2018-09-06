@@ -20,7 +20,7 @@ export default {
         { key: 'sn', label: 'serial number' },
         { key: 'name' },
         { key: 'count' },
-        { key: 'updated', label: 'last update', formatter: d => new Date(d).toISOString() }
+        { key: 'updated', label: 'last update', formatter: d => d ? new Date(d).toISOString() : '' }
       ],
       items: []
     }
