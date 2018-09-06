@@ -32,19 +32,26 @@
 export default {
   data() {
     return {
-      item: {}
+      items: {}
+    }
+  },
+  computed: {
+    item() {
+      return this.items[this.$router.currentRoute.query.sn] || {}
     }
   },
   methods: {
     editItem: function() {
       this.$store.dispatch('editItem', this.item)
       this.$router.push("/home")
-      this.item = {}
     }
   },
   firebase() {
     return {
-      item: this.$store.getters.itemBySn(this.$router.currentRoute.query.sn)
+      items: {
+        source: this.$store.getters.itemsRef,
+        asObject: true
+      }
     }
   }
 };

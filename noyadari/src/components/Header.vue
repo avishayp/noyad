@@ -9,7 +9,7 @@
     <b-collapse v-if="user" is-nav id="nav_collapse">
       <b-navbar-nav class="ml-auto">
         <b-nav-item right>
-          <p>user: {{user}}</p>
+          <p style="margin:6px;color:blue">user: {{user}}</p>
         </b-nav-item >
         
         <b-nav-item right>

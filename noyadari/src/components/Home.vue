@@ -2,7 +2,7 @@
   <div>
     
     <div>
-      <b-table :items="items">
+      <b-table :items="items" :fields="fields">
       </b-table>
     </div>
 
@@ -16,7 +16,13 @@
 export default {
   data() {
     return {
-      items: {}
+      fields: [
+        { key: 'sn', label: 'serial number' },
+        { key: 'name' },
+        { key: 'count' },
+        { key: 'updated', label: 'last update', formatter: d => new Date(d).toISOString() }
+      ],
+      items: []
     }
   },
   methods: {

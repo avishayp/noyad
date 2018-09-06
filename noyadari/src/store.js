@@ -25,8 +25,7 @@ const store = new Vuex.Store({
 
   getters: {
     userName: state => state.user && state.user.split('@')[0],
-    itemsRef: state => state.items,
-    itemBySn: state => sn => state.items.child(sn)
+    itemsRef: state => state.items
   },
 
   mutations: {
@@ -61,7 +60,7 @@ const store = new Vuex.Store({
       })
     },
     addItem: (context, item) => context.commit('updateItem', item),
-    updateItem: (context, item) => context.commit('updateItem', item)
+    editItem: (context, item) => context.commit('updateItem', item)
   }
 })
 
