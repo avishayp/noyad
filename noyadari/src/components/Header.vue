@@ -2,7 +2,7 @@
 <div>
   <b-navbar toggleable="md" type="light" variant="light">
 
-    <b-navbar-brand href="#">
+    <b-navbar-brand href="/home">
       <img src="@/assets/logo.png" height=60px/>
     </b-navbar-brand>
 

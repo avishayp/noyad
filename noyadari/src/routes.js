@@ -3,6 +3,7 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import AddItem from './components/AddItem.vue'
 import EditItem from './components/EditItem.vue'
+import ViewItem from './components/ViewItem.vue'
 import QRAdd from './components/QRAdd.vue'
 
 // state
@@ -38,6 +39,10 @@ const routes = [
         path: '/edit',
         component: EditItem
     },
+    {
+        path: '/view',
+        component: ViewItem
+    },    
     {
         path: '*',
         redirect: '/home'

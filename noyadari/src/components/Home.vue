@@ -2,11 +2,21 @@
   <div>
     
     <div>
-      <b-table :items="items" :fields="fields">
+      <b-table responsive flex striped hover
+               :items="items"
+               :fields="fields"
+               @row-clicked="viewItem">
+
+      <template slot="actions" slot-scope="row">
+        <b-button size="sm" variant="success">
+          details
+        </b-button>
+      </template>               
       </b-table>
     </div>
 
-    <b-button class="button is-clear" @click="addItem"> [+] New Sensor</b-button>
+    <b-button variant="primary" @click="addItem"> [+] New Sensor</b-button>
+    <i class="fa fa-android"></i>
 
   </div>
 </template>
@@ -17,19 +27,22 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'sn', label: 'serial number' },
-        { key: 'name' },
-        { key: 'count' },
-        { key: 'updated', label: 'last update', formatter: d => d ? new Date(d).toISOString() : '' }
+        { key: 'sn', label: 'Unit S.N' },
+        { key: 'status', label: 'Status' , formatter: s => s ? 'disconnected' : 'connected' },
+        { key: 'updated', label: 'Last connected', formatter: d => d ? new Date(d).toISOString() : '' },
+        { key: 'valve', label: 'Valve state', formatter: v => v ? 'open' : 'close' },
+        { key: 'x', label: '#open last day', formatter: 3 },
+        { key: 'y', label: '#open last month', formatter: 42 },
+        { key: 'actions', label: '' }
       ],
       items: []
     }
   },
   methods: {
-    viewItem: function() {
-      // tbd
+    viewItem(item) {
+      this.$router.push('/view/?sn=' + item.sn)
     },
-    addItem: function() {
+    addItem() {
       this.$router.push('/add')
     }
   },
