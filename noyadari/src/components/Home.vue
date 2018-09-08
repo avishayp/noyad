@@ -31,8 +31,8 @@ export default {
         { key: 'status', label: 'Status' , formatter: s => s ? 'disconnected' : 'connected' },
         { key: 'updated', label: 'Last connected', formatter: d => d ? new Date(d).toISOString() : '' },
         { key: 'valve', label: 'Valve state', formatter: v => v ? 'open' : 'close' },
-        { key: 'x', label: '#open last day', formatter: 3 },
-        { key: 'y', label: '#open last month', formatter: 42 },
+        { key: 'x', label: '#open last day', formatter: v => v || 3 },
+        { key: 'y', label: '#open last month', formatter: v => v || 42 },
         { key: 'actions', label: '' }
       ],
       items: []

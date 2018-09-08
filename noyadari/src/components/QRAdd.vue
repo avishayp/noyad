@@ -32,7 +32,7 @@ export default {
     .once('value', snapshot => {
       if (snapshot.val()) {
         console.log(sn, 'already exists')
-        this.$router.replace('/home')
+        this.$router.replace("/view/?sn=" + sn)
       } else {
         console.log(sn, 'not found')
         this.addNewItem(sn)
