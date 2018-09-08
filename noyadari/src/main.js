@@ -5,6 +5,10 @@ import App from './App.vue'
 import router from './routes'
 import store from './store'
 
+// map display
+import VueMapbox from 'vue-mapbox'
+import Mapbox from 'mapbox-gl'
+
 // === style
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,6 +17,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 Vue.use(VueFire);
 Vue.use(VueQrcodeReader);
+Vue.use(VueMapbox, { mapboxgl: Mapbox })
 
 let app;
 
