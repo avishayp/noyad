@@ -12,20 +12,51 @@
                :items="ocEvents"
                :fields="fields">              
       </b-table>
+
+      <line-chart
+        title="open/close events" xtitle="time" ytitle="open/close"
+        library="{ curve: false, pointSize: 0 }"
+        :data="mockOcTimeSeries">
+      </line-chart>
+
     </b-card>
 
   </div>
+
+
 </template>
 
 <script>
 
+import { timeFormat } from '@/util/query'
+
 export default {
   data() {
     return {
+      mockOcTimeSeries: {
+        '2018-09-01': 0,
+
+        '2018-09-03T23:36:07.818Z': 0,
+        '2018-09-03T23:36:07.819Z': 1,
+        '2018-09-04T07:36:07.818Z': 1,
+        '2018-09-04T07:36:07.819Z': 0,
+
+        '2018-09-07T23:36:07.818Z': 0,
+        '2018-09-07T23:36:07.819Z': 1,
+        '2018-09-08T23:42:07.820Z': 1,
+        '2018-09-08T23:42:07.821Z': 0,
+
+        '2018-09-12T09:42:07.819Z': 0,
+        '2018-09-12T09:42:07.820Z': 1,
+        '2018-09-14T09:42:07.820Z': 1,
+        '2018-09-14T09:42:07.822Z': 0,
+
+        '2018-09-16': 0
+      },
       items: {},
       fields: [
         { key: 'status', label: 'State' , formatter: s => s ? 'open' : 'close'},
-        { key: 'ts', label: 'recorded at', formatter: d => d ? new Date(d).toISOString() : '' }
+        { key: 'ts', label: 'recorded at', formatter: d => timeFormat(d) }
       ]
     }
   },

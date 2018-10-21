@@ -5,6 +5,9 @@ import App from './App.vue'
 import router from './routes'
 import store from './store'
 
+import VueChartkick from 'vue-chartkick'
+import Highcharts from 'highcharts'
+
 // map display
 import VueMapbox from 'vue-mapbox'
 import Mapbox from 'mapbox-gl'
@@ -17,6 +20,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue);
 Vue.use(VueFire);
 Vue.use(VueQrcodeReader);
+Vue.use(VueChartkick, {adapter: Highcharts})
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 
 let app;
