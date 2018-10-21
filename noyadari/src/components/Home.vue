@@ -29,10 +29,11 @@ export default {
       fields: [
         { key: 'sn', label: 'Unit S.N' },
         { key: 'status', label: 'Status' , formatter: s => s ? 'disconnected' : 'connected' },
-        { key: 'updated', label: 'Last connected', formatter: d => d ? new Date(d).toISOString() : '' },
+        { key: 'updated', label: 'Last connected', formatter: d => this.humanize(d) },
         { key: 'valve', label: 'Valve state', formatter: v => v ? 'open' : 'close' },
-        { key: 'x', label: '#open last day', formatter: v => v || 3 },
-        { key: 'y', label: '#open last month', formatter: v => v || 42 },
+        { key: 'openLastDay', label: '#open last day', formatter: v => v || 3 },
+        { key: 'openLastMonth', label: '#open last month', formatter: v => v || 42 },
+        { key: 'totalOpened', label: 'total opening time', formatter: v => v || '100h' },
         { key: 'actions', label: '' }
       ],
       items: []
@@ -44,6 +45,12 @@ export default {
     },
     addItem() {
       this.$router.push('/add')
+    },
+    humanize(d) {
+      if (!d) return ''
+
+      let [date, time] = new Date(d).toISOString().split('T')
+      return [date, time.split('.')[0]].join(' ')
     }
   },
   firebase() {
