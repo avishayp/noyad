@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { timeFormat } from '@/util/query'
 
 export default {
   data() {
@@ -29,7 +30,7 @@ export default {
       fields: [
         { key: 'sn', label: 'Unit S.N' },
         { key: 'status', label: 'Status' , formatter: s => s ? 'disconnected' : 'connected' },
-        { key: 'updated', label: 'Last connected', formatter: d => this.humanize(d) },
+        { key: 'updated', label: 'Last connected', formatter: d => timeFormat(d) },
         { key: 'valve', label: 'Valve state', formatter: v => v ? 'open' : 'close' },
         { key: 'openLastDay', label: '#open last day', formatter: v => v || 3 },
         { key: 'openLastMonth', label: '#open last month', formatter: v => v || 42 },
@@ -45,12 +46,6 @@ export default {
     },
     addItem() {
       this.$router.push('/add')
-    },
-    humanize(d) {
-      if (!d) return ''
-
-      let [date, time] = new Date(d).toISOString().split('T')
-      return [date, time.split('.')[0]].join(' ')
     }
   },
   firebase() {

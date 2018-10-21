@@ -29,4 +29,11 @@ function parseUrl (urlString) {
     return res
 }
 
-export { parseUrl }
+function timeFormat (timeStamp) {
+  if (!timeStamp) return ''
+
+  let [date, time] = new Date(timeStamp).toISOString().split('T')
+  return [date, time.split('.')[0]].join(' ')
+}
+
+export { parseUrl, timeFormat }

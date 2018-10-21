@@ -26,7 +26,7 @@
 
 <script>
 
-import { parseUrl } from '../util/query.js'
+import { parseUrl } from '@/util/query.js'
 
 export default {
   data() {
