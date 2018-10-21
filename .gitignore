@@ -3,3 +3,4 @@ dist
 .firebase
 .firebaserc
 *.log
+.DS_Store
