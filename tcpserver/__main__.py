@@ -1,14 +1,13 @@
 import socket
 from concurrent.futures import ThreadPoolExecutor
-import logging
 from .parser import KpResponse
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(levelname)s : %(message)s')
-log = logging.getLogger()
+from . import log
+from .notify import monitor
 
 IP = '0.0.0.0'
 PORT = 8888
 
+monitor("server up")
 
 def create_server(ip, port):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,7 +18,7 @@ def create_server(ip, port):
 
 def handle_client_connection(client_socket):
     request = client_socket.recv(1024)
-    log.info('Received %s', request)
+    monitor('Received %s', request)
 
     res = KpResponse()
     log.info('Sending: %s', res)

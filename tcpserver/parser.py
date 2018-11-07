@@ -2,6 +2,7 @@
 import datetime as dt
 from collections import namedtuple
 import bitstring
+from . import log
 
 Dt = namedtuple('Dt', 'day_of_year sec_since_midnight')
 
