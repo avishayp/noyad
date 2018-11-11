@@ -15,14 +15,14 @@ def get_current_time():
     return Dt(day_of_tear, sec_since_midnight)
 
 # format,  zero-padded to length of 20 hex (10 bytes)
-kp_format = '0x02, uint:12=DDD, uint:20=TTTTT, hex:4=P, 0x03, uint:8=CC, 0x0A0D, pad:4'
+kp_format = '0x02, uint:12=DDD, uint:20=TTTTT, hex:8=P, 0x03, uint:8=CC, 0x0A0D'
 
 def build_ack(dt_tuple=None, ack_ok=True):
     dtt = dt_tuple or get_current_time()
     d = {
         'DDD': dtt.day_of_year,
         'TTTTT': dtt.sec_since_midnight,
-        'P': '0x0' if ack_ok else '0xF',
+        'P': '0x00' if ack_ok else '0xFF',
         'CC': 0xFF
     }
 
