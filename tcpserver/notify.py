@@ -3,17 +3,22 @@ from . import log
 
 HOOK = 'https://hooks.slack.com/services/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'
 
+"""
+curl -d '{ "text": "test", "channel": "#ari", "icon_emoji": ":ari:", "username": "bot" }' \
+'https://hooks.slack.com/services/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'
+"""
+
 
 def monitor(msg, *args):
-    formatted = msg % args
     log.info(msg, *args)
-    notify(formatted)
+    notify(msg % args)
 
 
-def notify(msg, channel='#ari', user='ari-bot'):
-    return post(HOOK, json = {
+def notify(msg, channel='#ari', user='ari-bot', icon=':ari:', hook=HOOK):
+    r.post(hook, json = {
+            "text": msg,
             "channel": channel,
             "username": user,
-            "text": msg
+            "icon_emoji": icon
         }
-    ).text
+    )
